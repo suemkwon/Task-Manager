@@ -1,44 +1,117 @@
-# task-manager
+# Task Manager API
 
-FIXME: description
+A simple RESTful API for managing tasks built with Clojure and Compojure. This service provides basic CRUD operations for tasks with an in-memory storage solution.
+
+## Prerequisites
+
+Before you begin, ensure you have installed:
+
+- Clojure
+- Leiningen
 
 ## Installation
 
-Download from http://example.com/FIXME.
+Clone the repository:
 
-## Usage
+```bash
+git clone https://github.com/YOUR-USERNAME/YOUR-REPO-NAME.git
+cd task-manager
+```
 
-FIXME: explanation
+Install dependencies:
 
-    $ java -jar task-manager-0.1.0-standalone.jar [args]
+```bash
+lein deps
+```
 
-## Options
+## Running the Server
+Start the server on port 3000:
 
-FIXME: listing of options this app accepts.
+```bash
+lein run
+```
 
-## Examples
+The server will be available at http://localhost:3000.
 
-...
+## API Endpoints
 
-### Bugs
+### Get All Tasks
+```bash
+GET /tasks
+curl http://localhost:3000/tasks
+```
 
-...
+### Get Task by ID
+```bash
+GET /tasks/:id
+curl http://localhost:3000/tasks/1
+```
 
-### Any Other Sections
-### That You Think
-### Might be Useful
+### Create Task
+```bash
+POST /tasks
+Content-Type: application/json
+curl -X POST -H "Content-Type: application/json" \
+     -d '{"title":"New Task","description":"Task description"}' \
+     http://localhost:3000/tasks
+```
 
-## License
+### Update Task
+```bash
+PUT /tasks/:id
+Content-Type: application/json
+curl -X PUT -H "Content-Type: application/json" \
+     -d '{"title":"Updated Task","description":"Updated description"}' \
+     http://localhost:3000/tasks/1
+```
 
-Copyright © 2024 FIXME
+### Delete Task
+```bash
+DELETE /tasks/:id
+curl -X DELETE http://localhost:3000/tasks/1
+```
 
-This program and the accompanying materials are made available under the
-terms of the Eclipse Public License 2.0 which is available at
-http://www.eclipse.org/legal/epl-2.0.
+### Task Structure
+Tasks have the following structure:
 
-This Source Code may also be made available under the following Secondary
-Licenses when the conditions for such availability set forth in the Eclipse
-Public License, v. 2.0 are satisfied: GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or (at your
-option) any later version, with the GNU Classpath Exception which is available
-at https://www.gnu.org/software/classpath/license.html.
+```json
+Copy code
+{
+  "id": 1,
+  "title": "Task Title",
+  "description": "Task Description"
+}
+```
+
+### Development
+To start a development environment with automatic code reloading:
+
+```bash
+lein ring server
+```
+
+### Project Structure
+```bash
+task-manager/
+├── project.clj           # Project configuration and dependencies
+├── README.md             # This file
+└── src/
+    └── task_manager/
+        └── core.clj     # Main application logic and routes
+```
+
+### Dependencies
+Compojure (1.7.0) - Routing library
+Ring (0.3.4) - Web application library
+Ring-json (0.5.1) - JSON request/response handling
+Clojure data.json (2.4.0) - JSON parsing
+
+### Storage
+This implementation uses in-memory storage with atoms. Data will be lost when the server is restarted. For persistence, consider implementing a database solution.
+
+### Contributing
+Fork the repository
+Create your feature branch (git checkout -b feature/amazing-feature)
+Commit your changes (git commit -m 'Add some amazing feature')
+Push to the branch (git push origin feature/amazing-feature)
+Open a Pull Request
