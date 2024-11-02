@@ -75,7 +75,6 @@ curl -X DELETE http://localhost:3000/tasks/1
 Tasks have the following structure:
 
 ```json
-Copy code
 {
   "id": 1,
   "title": "Task Title",
